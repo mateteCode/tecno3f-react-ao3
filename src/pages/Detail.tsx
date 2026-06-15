@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useMovieDetail } from "../hooks/useMovieDetail";
-import { useGlobalContext } from "../context/GlobalContext";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { Loader } from "../components/Loader";
 
 export const Detail = () => {
   const { id } = useParams<{ id: string }>();
@@ -9,7 +10,7 @@ export const Detail = () => {
   const { movie, loading, error } = useMovieDetail(id);
   const { toggleFavorite, isFavorite } = useGlobalContext();
 
-  if (loading) return <p className="loading-text">Cargando detalles...</p>;
+  if (loading) return <Loader text="Buscando detalles..." />;
   if (error || !movie)
     return <p className="error-text">Película no encontrada.</p>;
 

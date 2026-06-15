@@ -1,4 +1,4 @@
-import { useGlobalContext } from "../context/GlobalContext";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 import { GridResultados } from "../components/GridResultados";
 
 export const Favorites = () => {

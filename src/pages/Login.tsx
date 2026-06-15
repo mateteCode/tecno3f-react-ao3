@@ -1,8 +1,7 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../context/GlobalContext";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 
-// Interfaz estricta para nuestro formulario
 interface LoginFormInputs {
   email: string;
   password?: string;
@@ -18,7 +17,6 @@ export const Login = () => {
   const navigate = useNavigate();
   const { login } = useGlobalContext();
 
-  // Tipado estricto de la función onSubmit
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     console.log("Login exitoso (Simulado)", data);
     login();

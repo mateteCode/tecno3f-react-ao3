@@ -8,15 +8,13 @@ export const useMovies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { addSearch, searches } = useRecentSearches();
 
-  // Si existe en el localStorage (incluso si es un string vacío ""), lo usamos.
-  // Si es null (primera vez que entra), usamos el historial o "Batman".
   const savedLastSearch = localStorage.getItem("lastQuery");
   const initialSearch =
     savedLastSearch !== null
       ? savedLastSearch
       : searches.length > 0
         ? searches[0]
-        : "Batman";
+        : "";
   const savedLastPage = localStorage.getItem("lastPage") || "1";
 
   const query = searchParams.has("q")
@@ -37,15 +35,18 @@ export const useMovies = () => {
   }, []);
 
   useEffect(() => {
-    // Guardamos siempre el valor actual, incluso si está vacío
     localStorage.setItem("lastQuery", query);
     localStorage.setItem("lastPage", page.toString());
 
-    // Si borraron el input, limpiamos la grilla y no hacemos la petición HTTP
-    if (!query.trim()) {
+    const resetMovies = () => {
       setMovies([]);
       setTotalResults(0);
       setError(null);
+    };
+
+    // Si borraron el input, limpiamos la grilla y no hacemos la petición HTTP
+    if (!query.trim()) {
+      resetMovies();
       return;
     }
 
@@ -81,7 +82,6 @@ export const useMovies = () => {
     setSearchParams({ q: query, page: newPage.toString() });
   };
 
-  // Exportamos searches desde acá para sincronizar todo perfectamente
   return {
     movies,
     totalResults,

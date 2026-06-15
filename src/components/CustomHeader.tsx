@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../context/GlobalContext";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 import {
   FaHome,
   FaHeart,

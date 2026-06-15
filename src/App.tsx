@@ -7,7 +7,7 @@ import { Login } from "./pages/Login";
 import { Favorites } from "./pages/Favorites";
 import { Detail } from "./pages/Detail";
 import { NotFound } from "./pages/NotFound";
-import { useGlobalContext } from "./context/GlobalContext";
+import { useGlobalContext } from "./hooks/useGlobalContext";
 
 function App() {
   const { theme } = useGlobalContext();

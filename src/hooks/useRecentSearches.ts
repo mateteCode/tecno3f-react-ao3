@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export const useRecentSearches = () => {
   const [searches, setSearches] = useState<string[]>(() => {
     const saved = localStorage.getItem("recentSearches");
-    return saved ? JSON.parse(saved) : ["Star Wars"];
+    return saved ? JSON.parse(saved) : [];
   });
 
   const addSearch = (query: string) => {

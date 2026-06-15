@@ -6,7 +6,6 @@ import { Pagination } from "../components/Pagination";
 import { RecentBadges } from "../components/RecentBadges";
 
 export const Movies = () => {
-  // Sacamos el hook useRecentSearches de acá, ahora viene todo sincronizado de useMovies
   const {
     movies,
     totalResults,
@@ -30,21 +29,18 @@ export const Movies = () => {
         </p>
       )}
 
-      {loading && <Loader />}
+      {loading && <Loader text="Buscando películas..." />}
 
-      {/* Mensaje cuando borraron el input */}
       {!query && !loading && (
         <p className="no-results">
           Ingresá una película para empezar a buscar.
         </p>
       )}
 
-      {/* Errores normales de búsqueda */}
       {error && query && !loading && <p className="error-text">{error}</p>}
 
       {!loading && !error && query && movies.length > 0 && (
         <>
-          {/* Paginación Arriba */}
           <Pagination
             currentPage={page}
             totalResults={totalResults}
@@ -53,7 +49,6 @@ export const Movies = () => {
 
           <GridResultados movies={movies} />
 
-          {/* Paginación Abajo */}
           <Pagination
             currentPage={page}
             totalResults={totalResults}

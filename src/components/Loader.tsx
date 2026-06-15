@@ -1,8 +1,8 @@
-export const Loader = () => {
+export const Loader = ({ text }: { text: string }) => {
   return (
     <div className="loader-container">
       <div className="spinner"></div>
-      <p>Buscando en el hiperespacio...</p>
+      {text && <p>{text}</p>}
     </div>
   );
 };

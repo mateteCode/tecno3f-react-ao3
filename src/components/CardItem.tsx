@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../context/GlobalContext";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import type { Movie } from "../types/movie";
 
-export const CardItem = ({ movie }: { movie: Movie }) => {
+interface Props {
+  movie: Movie;
+}
+
+export const CardItem = ({ movie }: Props) => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useGlobalContext();
   const initialPoster =
@@ -12,18 +16,18 @@ export const CardItem = ({ movie }: { movie: Movie }) => {
   const [posterSrc, setPosterSrc] = useState(initialPoster);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita que al tocar el corazón, nos lleve a la ruta de detalle
+    e.stopPropagation();
     toggleFavorite(movie);
   };
 
+  const handleCardClick = () => navigate(`/pelicula/${movie.imdbID}`);
+
+  const handlePosterError = () => setPosterSrc("/no_poster.png");
+
   return (
-    <div className="card" onClick={() => navigate(`/pelicula/${movie.imdbID}`)}>
+    <div className="card" onClick={handleCardClick}>
       <div className="poster-container">
-        <img
-          src={posterSrc}
-          alt={movie.Title}
-          onError={() => setPosterSrc("/no_poster.png")}
-        />
+        <img src={posterSrc} alt={movie.Title} onError={handlePosterError} />
         <button className="heart-overlay" onClick={handleFavoriteClick}>
           {isFavorite(movie.imdbID) ? (
             <FaHeart className="heart-filled" />

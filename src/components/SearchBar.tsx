@@ -1,4 +1,4 @@
-import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
+import { useState, type ChangeEvent, type SubmitEvent } from "react";
 import { FaTimes } from "react-icons/fa";
 
 interface SearchBarProps {
@@ -8,24 +8,25 @@ interface SearchBarProps {
 
 export const SearchBar = ({ onQuery, initialSearchTerm }: SearchBarProps) => {
   const [query, setQuery] = useState(initialSearchTerm);
+  const [prevSearchTerm, setPrevSearchTerm] = useState(initialSearchTerm);
 
-  // Sincroniza el estado local si la query cambia desde afuera (ej: al tocar un badge)
-  useEffect(() => {
+  if (initialSearchTerm !== prevSearchTerm) {
+    setPrevSearchTerm(initialSearchTerm);
     setQuery(initialSearchTerm);
-  }, [initialSearchTerm]);
+  }
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setQuery(event.target.value);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>): void => {
     event.preventDefault();
     onQuery(query);
   };
 
   const handleClear = () => {
     setQuery("");
-    onQuery(""); // Ejecuta la búsqueda vacía instantáneamente
+    onQuery("");
   };
 
   return (
