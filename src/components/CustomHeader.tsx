@@ -7,10 +7,11 @@ import {
   FaSun,
   FaSignInAlt,
   FaSignOutAlt,
+  FaSearch,
 } from "react-icons/fa";
 import { MdLocalMovies } from "react-icons/md";
 
-export const Header = () => {
+export const CustomHeader = () => {
   const { theme, toggleTheme, isAuthenticated, logout } = useGlobalContext();
   const navigate = useNavigate();
 
@@ -32,6 +33,9 @@ export const Header = () => {
       <nav className="header-nav">
         <Link to="/" title="Inicio">
           <FaHome />
+        </Link>
+        <Link to="/peliculas" title="Buscador">
+          <FaSearch />
         </Link>
         <Link to="/favoritos" title="Favoritos">
           <FaHeart />

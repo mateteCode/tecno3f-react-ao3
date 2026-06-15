@@ -3,14 +3,21 @@ import type { Movie, MovieDetail, OMDBResponse } from "../types/movie";
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 const BASE_URL = import.meta.env.VITE_OMDB_BASE_URL;
 
-export const fetchMoviesService = async (query: string): Promise<Movie[]> => {
-  if (!query.trim()) return [];
+export const fetchMoviesService = async (
+  query: string,
+  page: number = 1,
+): Promise<{ results: Movie[]; total: number }> => {
+  if (!query.trim()) return { results: [], total: 0 };
+
   const response = await fetch(
-    `${BASE_URL}?s=${query}&type=movie&apikey=${API_KEY}`,
+    `${BASE_URL}?s=${query}&type=movie&page=${page}&apikey=${API_KEY}`,
   );
   const data: OMDBResponse = await response.json();
-  console.log(data);
-  return data.Response === "True" && data.Search ? data.Search : [];
+
+  return {
+    results: data.Response === "True" && data.Search ? data.Search : [],
+    total: data.totalResults ? parseInt(data.totalResults, 10) : 0,
+  };
 };
 
 export const fetchMovieByIdService = async (
