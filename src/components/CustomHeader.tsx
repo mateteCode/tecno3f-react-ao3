@@ -12,12 +12,13 @@ import {
 import { MdLocalMovies } from "react-icons/md";
 
 export const CustomHeader = () => {
-  const { theme, toggleTheme, isAuthenticated, logout } = useGlobalContext();
+  const { theme, toggleTheme, isAuthenticated, openLogoutModal } =
+    useGlobalContext();
   const navigate = useNavigate();
 
   const handleAuthClick = () => {
     if (isAuthenticated) {
-      logout();
+      openLogoutModal();
     } else {
       navigate("/login");
     }
@@ -26,7 +27,9 @@ export const CustomHeader = () => {
   return (
     <header className="custom-header">
       <Link to="/" className="logo-container">
-        <MdLocalMovies className="logo-icon" />
+        <div className="logo-anim-wrapper">
+          <MdLocalMovies className="logo-icon logo-icon-animated" />
+        </div>
         <h1>Explorador de Pelis</h1>
       </Link>
 

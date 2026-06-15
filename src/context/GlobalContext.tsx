@@ -10,6 +10,9 @@ interface GlobalContextType {
   isAuthenticated: boolean;
   login: () => void;
   logout: () => void;
+  isLogoutModalOpen: boolean;
+  openLogoutModal: () => void;
+  closeLogoutModal: () => void;
 }
 
 export const GlobalContext = createContext<GlobalContextType>(

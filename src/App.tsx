@@ -8,6 +8,7 @@ import { Favorites } from "./pages/Favorites";
 import { Detail } from "./pages/Detail";
 import { NotFound } from "./pages/NotFound";
 import { useGlobalContext } from "./hooks/useGlobalContext";
+import { LogoutModal } from "./components/LogoutModal";
 
 function App() {
   const { theme } = useGlobalContext();
@@ -26,6 +27,7 @@ function App() {
         </Routes>
       </main>
       <CustomFooter />
+      <LogoutModal />
     </div>
   );
 }

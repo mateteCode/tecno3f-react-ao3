@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
-import { FaSearch, FaHeart, FaUser } from "react-icons/fa";
+import { FaSearch, FaHeart, FaUser, FaSignOutAlt } from "react-icons/fa";
+import { MdLocalMovies } from "react-icons/md"; // Importamos el ícono
+import { useGlobalContext } from "../hooks/useGlobalContext";
 
 export const Home = () => {
+  const { isAuthenticated, openLogoutModal } = useGlobalContext();
   return (
     <div className="landing-container">
+      <div className="hero-background">
+        <MdLocalMovies className="bg-icon-animated" />
+      </div>
       <div className="hero-section">
         <h1 className="hero-title">Bienvenido al Explorador de Pelis</h1>
         <p className="hero-subtitle">
@@ -17,9 +23,15 @@ export const Home = () => {
           <Link to="/favoritos" className="btn-secondary">
             <FaHeart /> Mis Favoritos
           </Link>
-          <Link to="/login" className="btn-outline">
-            <FaUser /> Ingresar
-          </Link>
+          {isAuthenticated ? (
+            <button onClick={openLogoutModal} className="btn-outline">
+              <FaSignOutAlt /> Cerrar Sesión
+            </button>
+          ) : (
+            <Link to="/login" className="btn-outline">
+              <FaUser /> Ingresar
+            </Link>
+          )}
         </div>
       </div>
     </div>

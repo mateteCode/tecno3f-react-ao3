@@ -15,6 +15,7 @@ export const GlobalProvider = ({ children }: Props) => {
   });
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -34,7 +35,14 @@ export const GlobalProvider = ({ children }: Props) => {
   const isFavorite = (id: string) => favorites.some((fav) => fav.imdbID === id);
 
   const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    setIsLogoutModalOpen(false);
+  };
+
+  const openLogoutModal = () => setIsLogoutModalOpen(true);
+  const closeLogoutModal = () => setIsLogoutModalOpen(false);
 
   return (
     <GlobalContext.Provider
@@ -47,6 +55,9 @@ export const GlobalProvider = ({ children }: Props) => {
         isAuthenticated,
         login,
         logout,
+        isLogoutModalOpen,
+        openLogoutModal,
+        closeLogoutModal,
       }}
     >
       {children}

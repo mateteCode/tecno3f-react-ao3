@@ -6,9 +6,7 @@ export const Favorites = () => {
 
   return (
     <div className="favorites-page">
-      <h2 style={{ textAlign: "center", marginTop: "2rem" }}>
-        Tus Películas Favoritas
-      </h2>
+      <h2 className="favorites-title">Tus Películas Favoritas</h2>
       {favorites.length === 0 ? (
         <p className="no-results">
           Aún no agregaste ninguna película a favoritos.
